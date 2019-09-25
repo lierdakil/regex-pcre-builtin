@@ -20,6 +20,10 @@ description:
 extra-source-files:
   ChangeLog.md
 
+source-repository head
+  type:     git
+  location: https://github.com/audreyt/regex-pcre-builtin
+
 library
   hs-source-dirs: src
   exposed-modules:
