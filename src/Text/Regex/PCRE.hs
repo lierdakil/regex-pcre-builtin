@@ -1,18 +1,8 @@
-{-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-|
 The "Text.Regex.PCRE" module provides a backend for regular
 expressions.  If you import this along with other backends, then
 you should do so with qualified imports, perhaps renamed for
 convenience.
-
-You will need to have libpcre, from www.pcre.org, to use
-this module.  The haskell must be compiled with -DHAVE_PCRE_H and
-linked with pcre.  This is the default in the cabal file.
-
-If you do not compile with HAVE_PCRE_H then the functions will still
-exist, but using them will create a run time error.  You can test for
-the existance of PCRE by checking 'getVersion' which is 'Nothing' if
-not compiled with PCRE or 'Just' 'String' if PCRE is present.
 
 Using the provided 'CompOption' and 'ExecOption' values and if
 'configUTF8' is True, then you might be able to send UTF8 encoded
@@ -40,6 +30,8 @@ module Text.Regex.PCRE(getVersion_Text_Regex_PCRE
   -- ** Wrap, for '=~' and '=~~', types and constants
   ,module Text.Regex.PCRE.Wrap) where
 
+import Prelude hiding (fail)
+
 import Text.Regex.PCRE.Wrap(Regex, CompOption(CompOption), ExecOption(ExecOption), (=~), (=~~),
   unusedOffset, getNumSubs, configUTF8, getVersion,
   compBlank, compAnchored, compAutoCallout, compCaseless,
@@ -54,9 +46,7 @@ import Text.Regex.PCRE.ByteString()
 import Text.Regex.PCRE.ByteString.Lazy()
 import Data.Version(Version(..))
 import Text.Regex.Base
+import qualified Paths_regex_pcre_builtin as Paths
 
 getVersion_Text_Regex_PCRE :: Version
-getVersion_Text_Regex_PCRE =
-  Version { versionBranch = [0,94,4,0,8,35]  -- Keep in sync with regex-pcre.cabal
-          , versionTags = ["unstable"]
-          }
+getVersion_Text_Regex_PCRE = Paths.version
